@@ -1,3 +1,3 @@
 User-agent: *
 Allow: /
-Sitemap: https://thisisaarushsingh15-beep.github.io/funhub-stage-a/sitemap.xml
+Sitemap: https://thisisaarushsingh15-beep.github.io/Funhub/sitemap.xml

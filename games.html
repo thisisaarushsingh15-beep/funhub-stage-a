@@ -1,88 +1,34 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Play quick, free browser games on FunHub, including strategy, survival, precision, memory and reaction games.">
-  <title>Free Online Games – FunHub</title>
-<link rel="canonical" href="https://thisisaarushsingh15-beep.github.io/funhub-stage-a/games.html">
-<meta property="og:title" content="Free Online Games – FunHub">
-<meta property="og:description" content="Play quick, free browser games on FunHub, including strategy, survival, precision, memory and reaction games.">
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://thisisaarushsingh15-beep.github.io/funhub-stage-a/games.html">
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Play quick, free browser games on FunHub, including reaction, guessing, memory, strategy, simulation and survival games.">
+<meta name="theme-color" content="#070911"><title>Free Online Games – FunHub</title>
+<link rel="canonical" href="https://thisisaarushsingh15-beep.github.io/Funhub/games.html">
+<meta property="og:title" content="Free Online Games – FunHub"><meta property="og:description" content="Play quick, free browser games on FunHub. No sign-up required."><meta property="og:type" content="website"><meta property="og:url" content="https://thisisaarushsingh15-beep.github.io/Funhub/games.html">
 <link rel="stylesheet" href="style.css">
 <!-- Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-S3H3K12WE5"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-S3H3K12WE5');
-</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-S3H3K12WE5"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-S3H3K12WE5');</script>
 </head>
 <body data-page="games">
-<header class="site-header"><div class="container nav-wrap">
-<a class="logo" href="index.html"><span>✦</span> FunHub</a><button class="menu-btn" aria-label="Open menu">☰</button>
-<nav class="nav"><a href="index.html">Home</a><a class="active" href="games.html">Games</a><a href="generators.html">Generators</a><a href="calculators.html">Calculators</a></nav>
-</div></header>
-
+<header class="site-header"><div class="container nav-wrap"><a class="logo" href="index.html"><span>✦</span> FunHub</a><button class="menu-btn" aria-label="Open menu" aria-expanded="false">☰</button><nav class="nav"><a href="index.html">Home</a><a class="active" href="games.html">Games</a><a href="generators.html">Generators</a><a href="calculators.html">Calculators</a></nav></div></header>
 <main class="container page">
-<div class="page-heading"><span class="eyebrow">PLAY</span><h1>Games</h1><p>Full browser games with maps, simulation systems, progression and replayable campaigns.</p></div>
-
-<section class="score-panel" aria-labelledby="scores-title">
-  <div><span class="eyebrow">YOUR RECORDS</span><h2 id="scores-title">Personal High Scores</h2><p class="muted">Your best scores are saved on this device. No account needed.</p></div>
-  <div class="score-grid">
-    <div class="score-item"><span>⚡ Reaction</span><strong id="score-reaction">—</strong></div>
-    <div class="score-item"><span>🔢 Guessing</span><strong id="score-guess">—</strong></div>
-    <div class="score-item"><span>🧠 Memory</span><strong id="score-memory">—</strong></div>
-    <div class="score-item"><span>🎯 Precision</span><strong id="score-precision">—</strong></div>
-    <div class="score-item"><span>🌎 Conquest</span><strong id="score-conquest">—</strong></div>
-    <div class="score-item"><span>🏴‍☠️ Pirate</span><strong id="score-pirate">—</strong></div>
-    <div class="score-item"><span>🧬 Survival</span><strong id="score-survival">—</strong></div>
-  </div>
+<section class="games-hero"><div><span class="eyebrow">PLAY</span><h1>Games worth replaying.</h1><p>Quick challenges when you have a minute. Bigger simulations when you have more time.</p></div><div class="games-stat"><strong id="games-played-count">0</strong><span>games played on this device</span></div></section>
+<section class="score-panel" aria-labelledby="scores-title"><div class="score-panel-head"><div><span class="eyebrow">YOUR RECORDS</span><h2 id="scores-title">Personal High Scores</h2><p class="muted">Saved only on this device. No account needed.</p></div><button id="reset-scores" class="text-btn">Reset records</button></div><div class="score-grid">
+<div class="score-item"><span>⚡ Reaction</span><strong id="score-reaction">—</strong></div><div class="score-item"><span>🔢 Guessing</span><strong id="score-guess">—</strong></div><div class="score-item"><span>🧠 Memory</span><strong id="score-memory">—</strong></div><div class="score-item"><span>🎯 Precision</span><strong id="score-precision">—</strong></div><div class="score-item"><span>🌎 Conquest</span><strong id="score-conquest">—</strong></div><div class="score-item"><span>🏴‍☠️ Pirate</span><strong id="score-pirate">—</strong></div><div class="score-item"><span>🧬 Survival</span><strong id="score-survival">—</strong></div>
+</div></section>
+<section class="daily-game-note" id="daily-game-note" aria-live="polite"></section>
+<div class="game-toolbar"><div class="filter-row" role="group" aria-label="Filter games"><button class="filter-btn active" data-filter="all">All</button><button class="filter-btn" data-filter="quick">Quick</button><button class="filter-btn" data-filter="strategy">Strategy</button><button class="filter-btn" data-filter="simulation">Simulation</button></div><label class="game-search"><span>⌕</span><input id="game-search" type="search" placeholder="Search games" aria-label="Search games"></label></div>
+<section class="game-grid upgraded-games" id="game-list">
+<article class="app-card game-card" data-game-card data-type="quick" id="reaction"><div class="app-top"><span class="tool-icon">⚡</span><span class="tag">QUICK · SPEED</span></div><h2>Reaction Test</h2><p class="muted">Wait for the signal and tap as fast as you can.</p><div id="reaction-box" class="reaction-box ready">Press Start</div><button id="reaction-btn" class="btn primary full">Start</button><p id="reaction-result" class="result" aria-live="polite"></p><div class="game-card-meta"><span>Personal best</span><strong id="reaction-card-best">—</strong></div></article>
+<article class="app-card game-card" data-game-card data-type="quick" id="guess"><div class="app-top"><span class="tool-icon">🔢</span><span class="tag">QUICK · LOGIC</span></div><h2>Number Guessing</h2><p class="muted">Find the hidden number from 1 to 100 in as few guesses as possible.</p><div class="input-row"><input id="guess-input" type="number" min="1" max="100" placeholder="Your guess"><button id="guess-btn" class="btn primary">Guess</button></div><p id="guess-result" class="result" aria-live="polite">Start guessing.</p><button id="guess-reset" class="text-btn">New number</button><div class="game-card-meta"><span>Best attempts</span><strong id="guess-card-best">—</strong></div></article>
+<article class="app-card game-card" data-game-card data-type="quick" id="memory"><div class="app-top"><span class="tool-icon">🧠</span><span class="tag">QUICK · MEMORY</span></div><h2>Memory Challenge</h2><p class="muted">Memorize the sequence, then type it back. Each round gets longer.</p><div id="memory-sequence" class="memory-display">Ready?</div><button id="memory-btn" class="btn primary full">Start challenge</button><input id="memory-input" class="hidden" type="text" inputmode="numeric" placeholder="Type the sequence"><p id="memory-result" class="result" aria-live="polite"></p><div class="game-card-meta"><span>Best level</span><strong id="memory-card-best">—</strong></div></article>
+<article class="app-card game-card" data-game-card data-type="simulation" id="precision-card"><div class="app-top"><span class="tool-icon">🎯</span><span class="tag">SIMULATION · PRECISION</span></div><h2>Precision AI Range</h2><p class="muted">A moving-target calibration simulation with combos and adaptive patterns.</p><a class="btn primary full" href="precision.html" data-game-link="precision">Play now →</a><div class="game-card-meta"><span>Personal best</span><strong id="precision-card-best">—</strong></div></article>
+<article class="app-card game-card" data-game-card data-type="strategy" id="conquest-card"><div class="app-top"><span class="tool-icon">🌎</span><span class="tag">STRATEGY</span></div><h2>World Conquest</h2><p class="muted">Build an empire across a living strategy map with economy, armies and diplomacy.</p><a class="btn primary full" href="conquest.html" data-game-link="conquest">Enter campaign →</a><div class="game-card-meta"><span>Personal best</span><strong id="conquest-card-best">—</strong></div></article>
+<article class="app-card game-card" data-game-card data-type="simulation" id="pirate-card"><div class="app-top"><span class="tool-icon">🏴‍☠️</span><span class="tag">SIMULATION</span></div><h2>Pirate Empire</h2><p class="muted">Explore islands, manage crew, trade cargo and react to changing events.</p><a class="btn primary full" href="pirate.html" data-game-link="pirate">Set sail →</a><div class="game-card-meta"><span>Personal best</span><strong id="pirate-card-best">—</strong></div></article>
+<article class="app-card game-card" data-game-card data-type="simulation" id="survival-card"><div class="app-top"><span class="tool-icon">🧬</span><span class="tag">SIMULATION · SURVIVAL</span></div><h2>Survival Outpost</h2><p class="muted">Defend a base through escalating waves, repairs, power decisions and upgrades.</p><a class="btn primary full" href="survival.html" data-game-link="survival">Defend outpost →</a><div class="game-card-meta"><span>Personal best</span><strong id="survival-card-best">—</strong></div></article>
 </section>
-
-<section id="daily-game-note" class="daily-game-note hidden" aria-live="polite"></section>
-<section class="game-grid">
-<article class="app-card" id="reaction">
-  <div class="app-top"><span class="tool-icon">⚡</span><span class="tag">SPEED</span></div>
-  <h2>Reaction Test</h2><p class="muted">Press start, wait for the screen to change, then click as quickly as possible.</p>
-  <div id="reaction-box" class="reaction-box ready">Press Start</div>
-  <button id="reaction-btn" class="btn primary full">Start</button>
-  <p id="reaction-result" class="result" aria-live="polite"></p>
-</article>
-
-<article class="app-card" id="guess">
-  <div class="app-top"><span class="tool-icon">🔢</span><span class="tag">LOGIC</span></div>
-  <h2>Number Guessing</h2><p class="muted">I'm thinking of a number from 1 to 100. Can you find it?</p>
-  <div class="input-row"><input id="guess-input" type="number" min="1" max="100" placeholder="Your guess"><button id="guess-btn" class="btn primary">Guess</button></div>
-  <p id="guess-result" class="result" aria-live="polite">Start guessing.</p>
-  <button id="guess-reset" class="text-btn">New number</button>
-</article>
-
-<article class="app-card" id="memory">
-  <div class="app-top"><span class="tool-icon">🧠</span><span class="tag">MEMORY</span></div>
-  <h2>Memory Challenge</h2><p class="muted">Memorize the sequence, then type it back. Each round gets longer.</p>
-  <div id="memory-sequence" class="memory-display">Ready?</div>
-  <button id="memory-btn" class="btn primary full">Start challenge</button>
-  <input id="memory-input" class="hidden" type="text" inputmode="numeric" placeholder="Type the sequence">
-  <p id="memory-result" class="result" aria-live="polite"></p>
-</article>
-
-
-<section class="stage-b-intro">
-  <span class="eyebrow">STAGE B</span>
-  <h2>More challenging games</h2>
-  <p class="muted">Longer, deeper browser games built for replayability. Your records stay on this device.</p>
-</section>
-
-<section class="game-grid stage-b-games">
-  <article class="app-card"><div class="app-top"><span class="tag">STRATEGY</span><span>🌎</span></div><h2>World Conquest</h2><p class="muted">A deep single-player grand-strategy campaign with a world map, provinces, economy, production, research, diplomacy, armies, morale and an adaptive AI.</p><a class="btn primary full" href="conquest.html">Enter campaign →</a></article>
-  <article class="app-card"><div class="app-top"><span class="tag">SIMULATION</span><span>🏴‍☠️</span></div><h2>Pirate Empire</h2><p class="muted">A naval exploration simulation with a living ocean, navigation, crew management, cargo, islands, trading, discoveries, weather and emergent events.</p><a class="btn primary full" href="pirate.html">Set sail →</a></article>
-  <article class="app-card"><div class="app-top"><span class="tag">AI RANGE</span><span>🎯</span></div><h2>Precision AI Range</h2><p class="muted">A futuristic AI calibration simulation with moving drones, precision zones, combos, energy management, adaptive patterns and cinematic feedback.</p><a class="btn primary full" href="precision.html">Enter simulation →</a></article>
-  <article class="app-card"><div class="app-top"><span class="tag">SURVIVAL</span><span>🧬</span></div><h2>Survival Outpost</h2><p class="muted">A full survival-defense simulation with a base, evolving creature waves, power management, barriers, repair decisions, upgrades and escalating events.</p><a class="btn primary full" href="survival.html">Defend outpost →</a></article>
-</section>
-
+<p id="no-games" class="empty-state hidden">No games match that search.</p>
 </main>
 <footer><div class="container footer-wrap"><span>© 2026 FunHub</span><span>More games coming soon.</span><span><a href="privacy.html">Privacy Policy</a></span></div></footer>
-<script src="script.js"></script>
-</body></html>
+<script src="script.js"></script></body></html>

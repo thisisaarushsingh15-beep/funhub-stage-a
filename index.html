@@ -3,40 +3,38 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Play free online games, create usernames and bios, and use simple calculators on FunHub. No sign-up required.">
-  <meta name="theme-color" content="#0b0b12">
+  <meta name="description" content="FunHub is a free collection of quick online games, fun generators and useful calculators. No sign-up required.">
+  <meta name="theme-color" content="#070911">
   <title>FunHub – Free Games, Generators & Calculators</title>
-  
-<link rel="canonical" href="https://thisisaarushsingh15-beep.github.io/funhub-stage-a/">
-<meta property="og:title" content="FunHub – Free Games, Generators & Calculators">
-<meta property="og:description" content="Play free online games, create usernames and bios, and use simple calculators on FunHub. No sign-up required.">
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://thisisaarushsingh15-beep.github.io/funhub-stage-a/">
-<link rel="stylesheet" href="style.css">
-<!-- Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-S3H3K12WE5"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-S3H3K12WE5');
-</script>
-
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "WebSite",
-  "name": "FunHub",
-  "url": "https://thisisaarushsingh15-beep.github.io/funhub-stage-a/",
-  "description": "Free online games, generators and useful calculators."
-}
-</script>
+  <link rel="canonical" href="https://thisisaarushsingh15-beep.github.io/Funhub/">
+  <meta property="og:title" content="FunHub – Free Games, Generators & Calculators">
+  <meta property="og:description" content="Play quick games, create fun content and use useful calculators on FunHub. Free and no sign-up required.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://thisisaarushsingh15-beep.github.io/Funhub/">
+  <link rel="stylesheet" href="style.css">
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-S3H3K12WE5"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-S3H3K12WE5');
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"WebSite",
+    "name":"FunHub",
+    "url":"https://thisisaarushsingh15-beep.github.io/Funhub/",
+    "description":"Free online games, generators and useful calculators."
+  }
+  </script>
 </head>
 <body data-page="home">
 <header class="site-header">
   <div class="container nav-wrap">
     <a class="logo" href="index.html"><span>✦</span> FunHub</a>
-    <button class="menu-btn" aria-label="Open menu">☰</button>
+    <button class="menu-btn" aria-label="Open menu" aria-expanded="false">☰</button>
     <nav class="nav">
       <a class="active" href="index.html">Home</a>
       <a href="games.html">Games</a>
@@ -47,66 +45,115 @@
 </header>
 
 <main>
-  <section class="hero container">
-    <div class="hero-copy">
-      <span class="eyebrow">QUICK • FREE • NO SIGN-UP</span>
-      <h1>Find something <span>fun</span> to do.</h1>
-      <p>Play a quick game, generate something random, or use a handy calculator. More tools are coming.</p>
-      <div class="hero-actions">
-        <a class="btn primary" href="games.html">Play a game <span>→</span></a>
-        <a class="btn secondary" href="generators.html">Explore generators</a>
+  <section class="home-hero">
+    <div class="container home-hero-inner">
+      <div class="home-hero-copy">
+        <span class="eyebrow">WELCOME TO FUNHUB</span>
+        <h1>Your place to <span>play, create &amp; calculate.</span></h1>
+        <p>Quick games, fun generators and useful tools — all in one place, completely free.</p>
+        <div class="hero-actions">
+          <a class="btn primary" href="games.html">Explore games <span>→</span></a>
+          <a class="btn secondary" href="#categories">Explore everything</a>
+        </div>
+      </div>
+      <div class="hero-visual" aria-hidden="true">
+        <div class="hero-glow glow-one"></div>
+        <div class="hero-glow glow-two"></div>
+        <div class="hero-orbit orbit-one"></div>
+        <div class="hero-orbit orbit-two"></div>
+        <div class="hero-symbol">✦</div>
       </div>
     </div>
-    <div class="hero-orb" aria-hidden="true">
-      <div class="orb-card">✦</div>
+  </section>
+
+  <section class="container home-section" id="categories">
+    <div class="home-section-heading">
+      <div>
+        <span class="eyebrow">EXPLORE</span>
+        <h2>Pick your thing.</h2>
+      </div>
+      <p>Three simple places to start.</p>
+    </div>
+
+    <div class="home-category-grid">
+      <a class="home-category-card category-purple" href="games.html">
+        <div class="category-top"><span class="big-icon">🎮</span><span class="category-arrow">↗</span></div>
+        <div class="category-number">01</div>
+        <h3>Games</h3>
+        <p>Challenge yourself with quick, replayable games.</p>
+        <span class="category-link">Explore games →</span>
+      </a>
+
+      <a class="home-category-card category-cyan" href="generators.html">
+        <div class="category-top"><span class="big-icon">✨</span><span class="category-arrow">↗</span></div>
+        <div class="category-number">02</div>
+        <h3>Generators</h3>
+        <p>Create usernames, nicknames and fun bios in seconds.</p>
+        <span class="category-link">Explore generators →</span>
+      </a>
+
+      <a class="home-category-card category-green" href="calculators.html">
+        <div class="category-top"><span class="big-icon">🧮</span><span class="category-arrow">↗</span></div>
+        <div class="category-number">03</div>
+        <h3>Calculators</h3>
+        <p>Handle useful everyday calculations without the hassle.</p>
+        <span class="category-link">Explore calculators →</span>
+      </a>
     </div>
   </section>
 
-  <section class="container section">
-    <div class="section-heading">
-      <div><span class="eyebrow">EXPLORE</span><h2>Pick your thing.</h2></div>
-      <span class="section-note">3 categories • 13+ tools</span>
+  <section class="container home-section quick-section">
+    <div class="home-section-heading">
+      <div>
+        <span class="eyebrow">QUICK PICKS</span>
+        <h2>Try something now.</h2>
+      </div>
+      <a class="heading-link" href="games.html">See all →</a>
     </div>
 
-    <div class="category-grid">
-      <a class="category-card purple" href="games.html">
-        <div class="icon">🎮</div><div><h3>Games</h3><p>Play strategy, survival, precision, memory and reaction games.</p></div><span class="arrow">→</span>
+    <div class="home-tool-grid">
+      <a class="home-tool-card" href="games.html#reaction">
+        <span class="tool-icon">⚡</span>
+        <div><h3>Reaction Test</h3><p>How fast can you react?</p></div>
+        <span class="tool-arrow">→</span>
       </a>
-      <a class="category-card blue" href="generators.html">
-        <div class="icon">✨</div><div><h3>Generators</h3><p>Create usernames, nicknames and fun bios instantly.</p></div><span class="arrow">→</span>
+      <a class="home-tool-card" href="games.html#guess">
+        <span class="tool-icon">🔢</span>
+        <div><h3>Number Guessing</h3><p>Can you find the hidden number?</p></div>
+        <span class="tool-arrow">→</span>
       </a>
-      <a class="category-card green" href="calculators.html">
-        <div class="icon">🧮</div><div><h3>Calculators</h3><p>Useful everyday calculations without the hassle.</p></div><span class="arrow">→</span>
+      <a class="home-tool-card" href="games.html#memory">
+        <span class="tool-icon">🧠</span>
+        <div><h3>Memory Challenge</h3><p>Put your memory to the test.</p></div>
+        <span class="tool-arrow">→</span>
+      </a>
+      <a class="home-tool-card" href="calculators.html#age">
+        <span class="tool-icon">🎂</span>
+        <div><h3>Age Calculator</h3><p>Find your exact age.</p></div>
+        <span class="tool-arrow">→</span>
       </a>
     </div>
   </section>
 
-  <section class="container section">
-    <div class="section-heading">
-      <div><span class="eyebrow">QUICK PICKS</span><h2>Try these now.</h2></div>
-    </div>
-    <div class="tool-grid">
-      <a class="tool-card" href="games.html#reaction"><span class="tool-icon">⚡</span><h3>Reaction Test</h3><p>How fast can you react?</p><span class="tool-link">Play →</span></a>
-      <a class="tool-card" href="conquest.html"><span class="tool-icon">🌎</span><h3>World Conquest</h3><p>Build an empire across a living strategy map.</p><span class="tool-link">Play →</span></a>
-      <a class="tool-card" href="pirate.html"><span class="tool-icon">🏴‍☠️</span><h3>Pirate Empire</h3><p>Explore islands, manage crew and build your trading empire.</p><span class="tool-link">Play →</span></a>
-      <a class="tool-card" href="generators.html#username"><span class="tool-icon">🪪</span><h3>Username Generator</h3><p>Find a username in seconds.</p><span class="tool-link">Generate →</span></a>
-      <a class="tool-card" href="calculators.html#age"><span class="tool-icon">🎂</span><h3>Age Calculator</h3><p>Find your exact age.</p><span class="tool-link">Calculate →</span></a>
-    </div>
-  </section>
-
-  <section class="container daily" id="daily-challenge">
-    <div>
+  <section class="container home-daily" id="daily-challenge">
+    <div class="daily-copy">
       <span class="eyebrow">TODAY'S CHALLENGE</span>
       <h2 id="daily-title">Daily Challenge</h2>
-      <p id="daily-description">A fresh little challenge, updated every day.</p>
+      <p id="daily-description">A fresh little challenge to keep FunHub interesting.</p>
       <a id="daily-btn" class="btn primary" href="games.html">Take the challenge →</a>
       <p id="daily-status" class="daily-status" aria-live="polite"></p>
     </div>
-    <div id="daily-badge" class="daily-badge">01</div>
+    <div id="daily-badge" class="daily-badge" aria-hidden="true">✦</div>
   </section>
 </main>
 
-<footer><div class="container footer-wrap"><span>© 2026 FunHub</span><span>Made for fun. More tools coming soon.</span><span><a href="privacy.html">Privacy Policy</a></span></div></footer>
+<footer>
+  <div class="container footer-wrap">
+    <span>© 2026 FunHub</span>
+    <span>Made for fun. More tools coming soon.</span>
+    <span><a href="privacy.html">Privacy Policy</a></span>
+  </div>
+</footer>
 <script src="script.js"></script>
 </body>
 </html>
