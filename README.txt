@@ -1,11 +1,12 @@
-FunHub Stage B — test build
+FunHub Complex Simulation Test Build
 
-This package builds on the verified Stage A version and adds four games:
-- Precision Target
-- World Conquest Lite
-- Pirate Empire
-- Survival Run
+This test build upgrades the four Stage B games into separate pages:
+- conquest.html — World Conquest strategy simulation
+- pirate.html — Pirate Empire island/sea simulation
+- precision.html — Precision AI virtual target simulation
+- survival.html — Survival Outpost creature-defense simulation
 
-IMPORTANT: This package is configured for the separate funhub-stage-a GitHub Pages test site. Test it there first. Do not use this package as the final live-site SEO package because its canonical URLs point to the test site.
+Configured for the separate GitHub Pages test repository:
+https://thisisaarushsingh15-beep.github.io/funhub-stage-a/
 
-After testing, create a live-site package with canonical URLs pointing to the main FunHub site.
+Do not upload this test build to the live FunHub repository yet. Test each game and the existing tools first. A separate live package should be generated after testing, with canonical URLs switched to the live FunHub site.

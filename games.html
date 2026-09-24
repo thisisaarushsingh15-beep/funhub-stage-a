@@ -76,48 +76,10 @@
 </section>
 
 <section class="game-grid stage-b-games">
-<article class="app-card" id="precision">
-  <div class="app-top"><span class="tool-icon">🎯</span><span class="tag">PRECISION</span></div>
-  <h2>Precision Target</h2>
-  <p class="muted">Hit moving targets before time runs out. Smaller targets are worth more.</p>
-  <div class="target-arena" id="target-arena"><button type="button" id="target-dot" class="target-dot" aria-label="Target" hidden></button><span id="target-message">Press start to begin.</span></div>
-  <div class="game-stats"><span>Time <strong id="target-time">30s</strong></span><span>Score <strong id="target-score">0</strong></span><span>Hits <strong id="target-hits">0</strong></span></div>
-  <button id="target-btn" class="btn primary full" type="button">Start 30s run</button>
-  <p id="target-result" class="result" aria-live="polite"></p>
-</article>
-
-<article class="app-card" id="conquest">
-  <div class="app-top"><span class="tool-icon">🌎</span><span class="tag">STRATEGY</span></div>
-  <h2>World Conquest Lite</h2>
-  <p class="muted">Capture territories, defend your borders and outscore the AI in 12 turns.</p>
-  <div class="territory-grid" id="territory-grid" aria-label="Territory map"></div>
-  <div class="game-stats"><span>You <strong id="conquest-player">3</strong></span><span>AI <strong id="conquest-ai">3</strong></span><span>Turn <strong id="conquest-turn">1/12</strong></span></div>
-  <p id="conquest-result" class="result" aria-live="polite">Choose a highlighted territory to attack.</p>
-  <button id="conquest-btn" class="btn primary full" type="button">Start new campaign</button>
-</article>
-
-<article class="app-card" id="pirate">
-  <div class="app-top"><span class="tool-icon">🏴‍☠️</span><span class="tag">EMPIRE</span></div>
-  <h2>Pirate Empire</h2>
-  <p class="muted">Build a small fleet, explore islands and manage your gold, crew and cargo.</p>
-  <div class="pirate-stats">
-    <div><span>Gold</span><strong id="pirate-gold">120</strong></div><div><span>Crew</span><strong id="pirate-crew">10</strong></div><div><span>Cargo</span><strong id="pirate-cargo">0/20</strong></div><div><span>Fleet</span><strong id="pirate-fleet">1</strong></div>
-  </div>
-  <div class="pirate-actions"><button type="button" class="btn" data-pirate="explore">Explore</button><button type="button" class="btn" data-pirate="trade">Trade</button><button type="button" class="btn" data-pirate="upgrade">Upgrade ship</button><button type="button" class="btn" data-pirate="recruit">Recruit crew</button></div>
-  <p id="pirate-result" class="result" aria-live="polite">Reach 500 gold to win your first empire.</p>
-  <button id="pirate-reset" class="text-btn" type="button">Restart voyage</button>
-</article>
-
-<article class="app-card" id="survival">
-  <div class="app-top"><span class="tool-icon">🧬</span><span class="tag">SURVIVAL</span></div>
-  <h2>Survival Run</h2>
-  <p class="muted">Survive escalating waves of fictional creatures. Collect energy and choose an upgrade after each wave; longer runs score higher.</p>
-  <div class="survival-bar"><span id="survival-hp" style="width:100%"></span></div>
-  <div class="game-stats"><span>Wave <strong id="survival-wave">0</strong></span><span>Energy <strong id="survival-energy">0</strong></span><span>Time <strong id="survival-time">0:00</strong></span></div>
-  <div id="survival-upgrades" class="upgrade-grid hidden"></div>
-  <button id="survival-btn" class="btn primary full" type="button">Start survival run</button>
-  <p id="survival-result" class="result" aria-live="polite"></p>
-</article>
+  <article class="app-card"><div class="app-top"><span class="tag">STRATEGY</span><span>🌎</span></div><h2>World Conquest</h2><p class="muted">A turn-based world strategy campaign with an interactive map, armies, economy, influence, diplomacy and AI expansion.</p><a class="btn primary full" href="conquest.html">Enter campaign →</a></article>
+  <article class="app-card"><div class="app-top"><span class="tag">SIMULATION</span><span>🏴‍☠️</span></div><h2>Pirate Empire</h2><p class="muted">Take command of a ship, sail an uncharted sea, discover islands, meet crew events, trade cargo and build reputation.</p><a class="btn primary full" href="pirate.html">Set sail →</a></article>
+  <article class="app-card"><div class="app-top"><span class="tag">AI RANGE</span><span>🎯</span></div><h2>Precision AI Range</h2><p class="muted">A futuristic virtual training simulation with moving targets, scoring zones, combos, waves and particle feedback.</p><a class="btn primary full" href="precision.html">Enter simulation →</a></article>
+  <article class="app-card"><div class="app-top"><span class="tag">SURVIVAL</span><span>🧬</span></div><h2>Survival Outpost</h2><p class="muted">Defend a remote shelter from escalating creature waves while balancing base integrity, energy and repairs.</p><a class="btn primary full" href="survival.html">Defend outpost →</a></article>
 </section>
 
 </main>
