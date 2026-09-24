@@ -48,14 +48,77 @@
 
   // Memory Challenge
   const mb=$('memory-btn'),md=$('memory-sequence'),mi=$('memory-input'),mr=$('memory-result');
-  if(mb&&md&&mi){let sequence='',level=0,accept=false;const startMemory=()=>{level=1;sequence='';accept=false;mi.value='';mi.classList.add('hidden');mr.textContent='Watch carefully…';mb.textContent='Check answer';markPlay('memory');nextRound()};const nextRound=()=>{sequence+=Math.floor(Math.random()*10);accept=false;md.textContent=sequence;setTimeout(()=>{md.textContent='•••••';mi.classList.remove('hidden');mi.focus();accept=true},Math.max(850,650+sequence.length*120))};mb.addEventListener('click',()=>{if(!accept&&level===0)startMemory();else if(!accept){return}else{const answer=mi.value.replace(/\s+/g,'');if(answer===sequence){level++;mr.textContent=`Correct! Level ${level-1}.`;recordDaily('memory');mb.textContent='Check answer';setTimeout(nextRound,450)}else{const best=Math.max(0,level-1),old=Number(safeGet(keys.memory)||0);if(best>old){safeSet(keys.memory,best);send('funhub_new_record',{game:'memory',score:best})}const e=$('score-memory'),c=$('memory-card-best');if(e)e.textContent=Math.max(best,old);if(c)c.textContent=Math.max(best,old);mr.textContent=`Game over. You reached level ${best}.`;accept=false;mi.classList.add('hidden');level=0;md.textContent='Ready?';mb.textContent='Start challenge'}}});}
+  if(mb&&md&&mi){
+    let sequence='',level=0,accept=false,showTimer=null;
+    const clearMemoryTimer=()=>{if(showTimer){clearTimeout(showTimer);showTimer=null}};
+    const startMemory=()=>{clearMemoryTimer();level=1;sequence='';accept=false;mi.value='';mi.classList.add('hidden');mr.textContent='Watch the digits one by one…';mb.textContent='Check answer';markPlay('memory');nextRound()};
+    const nextRound=()=>{
+      clearMemoryTimer();
+      sequence='';
+      const length=level+2; // starts at 3 digits, then grows by one each level
+      for(let i=0;i<length;i++) sequence+=Math.floor(Math.random()*10);
+      accept=false;mi.value='';mi.classList.add('hidden');
+      let i=0;
+      const revealNext=()=>{
+        if(i<sequence.length){
+          md.textContent=sequence[i];
+          i++;
+          showTimer=setTimeout(revealNext,520);
+        }else{
+          md.textContent='••••••';
+          showTimer=setTimeout(()=>{mi.classList.remove('hidden');mi.focus();accept=true;mr.textContent=`Enter the ${sequence.length}-digit sequence.`},650);
+        }
+      };
+      revealNext();
+    };
+    mb.addEventListener('click',()=>{
+      if(!accept&&level===0) startMemory();
+      else if(!accept) return;
+      else{
+        const answer=mi.value.replace(/\s+/g,'');
+        if(answer===sequence){
+          const completed=level;
+          level++;
+          mr.textContent=`Correct! Level ${completed}. Next round: ${level+2} digits.`;
+          recordDaily('memory');
+          mb.textContent='Check answer';
+          setTimeout(nextRound,650);
+        }else{
+          const best=Math.max(0,level-1),old=Number(safeGet(keys.memory)||0);
+          if(best>old){safeSet(keys.memory,best);send('funhub_new_record',{game:'memory',score:best})}
+          const e=$('score-memory'),c=$('memory-card-best');if(e)e.textContent=Math.max(best,old);if(c)c.textContent=Math.max(best,old);
+          mr.textContent=`Game over. You reached level ${best}. The sequence was ${sequence}.`;
+          accept=false;clearMemoryTimer();mi.classList.add('hidden');level=0;md.textContent='Ready?';mb.textContent='Start challenge';
+        }
+      }
+    });
+  }
 
   // Generators
   const pick=(arr,n)=>{const copy=[...arr],out=[];while(copy.length&&out.length<n)out.push(copy.splice(Math.floor(Math.random()*copy.length),1)[0]);return out};
   const showOutputs=(el,items,type)=>{if(!el)return;el.innerHTML=items.map((x,i)=>`<div class="output-item"><span>${x.replace(/</g,'&lt;').replace(/>/g,'&gt;')}</span><button class="copy-btn" data-copy="${encodeURIComponent(x)}">Copy</button></div>`).join('');el.querySelectorAll('.copy-btn').forEach(b=>b.addEventListener('click',async()=>{const text=decodeURIComponent(b.dataset.copy);try{await navigator.clipboard.writeText(text);b.textContent='Copied!';setTimeout(()=>b.textContent='Copy',900)}catch{b.textContent='Select manually'}send('funhub_generator_copy',{generator:type})}));send('funhub_generator_result',{generator:type,count:items.length})};
   const usernameSets={cool:['Nova','Shadow','Orbit','Vortex','Echo','Lunar','Frost','Pixel'],gaming:['Byte','Rogue','Turbo','Clutch','Respawn','Quest','Aim','Loot'],minimal:['mono','north','plain','void','nox','moss','arc','zen'],fun:['Bouncy','Waffle','Noodle','Banana','Giggle','Mango','Panda','Jelly'],aesthetic:['Velvet','Bloom','Aurora','Sage','Opal','Solace','Muse','Dusk']};
   const userBtn=$('username-btn');if(userBtn)userBtn.addEventListener('click',()=>{const vibe=$('username-vibe').value,w=usernameSets[vibe],nums=['7','17','21','404','99','24','08',''];const out=pick(Array.from({length:12},(_,i)=>w[i%w.length]+(i%3===0?'':nums[i%nums.length])+(i%4===0?'_':'')),5);showOutputs($('username-output'),out,'username')});
-  const nickBtn=$('nickname-btn');if(nickBtn)nickBtn.addEventListener('click',()=>{const raw=($('nickname-input').value||'').trim().replace(/[^a-zA-Z0-9]/g,'');if(!raw){showOutputs($('nickname-output'),['Enter a name first.'],'nickname');return}const n=raw[0].toUpperCase()+raw.slice(1).toLowerCase(),variants=[n.slice(0,4),n.slice(0,3)+'y',n+'o',n+'ster','The'+n];showOutputs($('nickname-output'),[...new Set(variants)].slice(0,5),'nickname')});
+  const nickBtn=$('nickname-btn');if(nickBtn)nickBtn.addEventListener('click',()=>{
+    const raw=($('nickname-input').value||'').trim().replace(/[^a-zA-Z0-9]/g,'');
+    if(!raw){showOutputs($('nickname-output'),['Enter a name first.'],'nickname');return}
+    const n=raw[0].toUpperCase()+raw.slice(1).toLowerCase();
+    const prefixes=['Lil','Big','Its','Hey','The','Mr','Captain','Crazy','Real','ItsJust'];
+    const suffixes=['y','o','z','zy','ster','ito','bear','boss','boy','girl','king','queen','fox','spark','wave','vibe','pro','go','x','xo'];
+    const patterns=[
+      ()=>n.slice(0,Math.max(2,Math.ceil(n.length*0.55))),
+      ()=>n.slice(0,Math.max(3,Math.ceil(n.length*0.7)))+'y',
+      ()=>n.slice(0,Math.max(2,Math.ceil(n.length*0.5)))+'o',
+      ()=>n+suffixes[Math.floor(Math.random()*suffixes.length)],
+      ()=>suffixes[Math.floor(Math.random()*suffixes.length)]+n,
+      ()=>prefixes[Math.floor(Math.random()*prefixes.length)]+n,
+      ()=>n+Math.floor(10+Math.random()*90),
+      ()=>n.slice(0,Math.max(2,Math.ceil(n.length*0.6)))+suffixes[Math.floor(Math.random()*suffixes.length)]
+    ];
+    const results=new Set();let attempts=0;
+    while(results.size<5&&attempts<100){const value=patterns[Math.floor(Math.random()*patterns.length)]().replace(/\s+/g,'');results.add(value);attempts++}
+    showOutputs($('nickname-output'),Array.from(results).slice(0,5),'nickname');
+  });
   const bioSets={chill:['Taking it easy, one day at a time. 🌿','Good energy. Quiet goals.','Here for the moments that matter.','Low pressure, high vibes.','Just enjoying the ride.'],funny:['Professional snack finder.','Running on vibes and questionable ideas.','Currently buffering…','I came, I saw, I forgot why.','Part-time human, full-time legend.'],ambitious:['Building quietly. Growing daily.','Small steps. Big plans.','Discipline over excuses.','Learning today, creating tomorrow.','Focused on the next level.'],mysterious:['More to the story.','Offline, but never ordinary.','You know the surface.','Some things stay unexplained.','Read between the lines.'],creator:['Ideas in. Things out.','Creating more than consuming.','Making, learning, repeating.','One project at a time.','Building things for the internet.']};
   const bioBtn=$('bio-btn');if(bioBtn)bioBtn.addEventListener('click',()=>showOutputs($('bio-output'),pick(bioSets[$('bio-vibe').value],5),'bio'));
 
