@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Play quick, free browser games on FunHub, including a reaction test, number guessing game and memory challenge.">
+  <title>Free Online Games – FunHub</title>
+<link rel="canonical" href="https://thisisaarushsingh15-beep.github.io/funhub-stage-a/games.html">
+<meta property="og:title" content="Free Online Games – FunHub">
+<meta property="og:description" content="Play quick, free browser games on FunHub, including a reaction test, number guessing game and memory challenge.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://thisisaarushsingh15-beep.github.io/funhub-stage-a/games.html">
+<link rel="stylesheet" href="style.css">
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-S3H3K12WE5"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-S3H3K12WE5');
+</script>
+</head>
+<body data-page="games">
+<header class="site-header"><div class="container nav-wrap">
+<a class="logo" href="index.html"><span>✦</span> FunHub</a><button class="menu-btn" aria-label="Open menu">☰</button>
+<nav class="nav"><a href="index.html">Home</a><a class="active" href="games.html">Games</a><a href="generators.html">Generators</a><a href="calculators.html">Calculators</a></nav>
+</div></header>
+
+<main class="container page">
+<div class="page-heading"><span class="eyebrow">PLAY</span><h1>Games</h1><p>Short games you can play whenever you have a minute.</p></div>
+
+<section class="score-panel" aria-labelledby="scores-title">
+  <div><span class="eyebrow">YOUR RECORDS</span><h2 id="scores-title">Personal High Scores</h2><p class="muted">Your best scores are saved on this device. No account needed.</p></div>
+  <div class="score-grid">
+    <div class="score-item"><span>⚡ Reaction</span><strong id="score-reaction">—</strong></div>
+    <div class="score-item"><span>🔢 Guessing</span><strong id="score-guess">—</strong></div>
+    <div class="score-item"><span>🧠 Memory</span><strong id="score-memory">—</strong></div>
+  </div>
+</section>
+
+<section id="daily-game-note" class="daily-game-note hidden" aria-live="polite"></section>
+<section class="game-grid">
+<article class="app-card" id="reaction">
+  <div class="app-top"><span class="tool-icon">⚡</span><span class="tag">SPEED</span></div>
+  <h2>Reaction Test</h2><p class="muted">Press start, wait for the screen to change, then click as quickly as possible.</p>
+  <div id="reaction-box" class="reaction-box ready">Press Start</div>
+  <button id="reaction-btn" class="btn primary full">Start</button>
+  <p id="reaction-result" class="result" aria-live="polite"></p>
+</article>
+
+<article class="app-card" id="guess">
+  <div class="app-top"><span class="tool-icon">🔢</span><span class="tag">LOGIC</span></div>
+  <h2>Number Guessing</h2><p class="muted">I'm thinking of a number from 1 to 100. Can you find it?</p>
+  <div class="input-row"><input id="guess-input" type="number" min="1" max="100" placeholder="Your guess"><button id="guess-btn" class="btn primary">Guess</button></div>
+  <p id="guess-result" class="result" aria-live="polite">Start guessing.</p>
+  <button id="guess-reset" class="text-btn">New number</button>
+</article>
+
+<article class="app-card" id="memory">
+  <div class="app-top"><span class="tool-icon">🧠</span><span class="tag">MEMORY</span></div>
+  <h2>Memory Challenge</h2><p class="muted">Memorize the sequence, then type it back. Each round gets longer.</p>
+  <div id="memory-sequence" class="memory-display">Ready?</div>
+  <button id="memory-btn" class="btn primary full">Start challenge</button>
+  <input id="memory-input" class="hidden" type="text" inputmode="numeric" placeholder="Type the sequence">
+  <p id="memory-result" class="result" aria-live="polite"></p>
+</article>
+</section>
+</main>
+<footer><div class="container footer-wrap"><span>© 2026 FunHub</span><span>More games coming soon.</span><span><a href="privacy.html">Privacy Policy</a></span></div></footer>
+<script src="script.js"></script>
+</body></html>
