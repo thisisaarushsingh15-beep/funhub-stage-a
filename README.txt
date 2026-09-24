@@ -1,31 +1,11 @@
-FUNHUB STAGE A — TEST BUILD
+FunHub Stage B — test build
 
-Files:
-- index.html
-- games.html
-- generators.html
-- calculators.html
-- privacy.html
-- style.css
-- script.js
-- sitemap.xml
-- robots.txt
+This package builds on the verified Stage A version and adds four games:
+- Precision Target
+- World Conquest Lite
+- Pirate Empire
+- Survival Run
 
-STAGE A FEATURES:
-- Daily Challenge
-- Personal High Scores
-- Improved game flow
-- Fixed Memory Challenge answer checking
-- Existing generators and calculators preserved
-- Google Analytics measurement ID included
-- Privacy Policy included
+IMPORTANT: This package is configured for the separate funhub-stage-a GitHub Pages test site. Test it there first. Do not use this package as the final live-site SEO package because its canonical URLs point to the test site.
 
-TESTING:
-1. Keep all files in the same folder/repository root.
-2. Publish the repository with GitHub Pages.
-3. Test every game, generator, calculator, navigation link and Privacy Policy link before moving anything to the live FunHub repository.
-
-IMPORTANT:
-- This is a TEST repository. Its canonical URLs and sitemap point to the test GitHub Pages site.
-- Do not submit this test sitemap to the live FunHub Search Console property.
-- No database or server is required.
+After testing, create a live-site package with canonical URLs pointing to the main FunHub site.

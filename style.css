@@ -11,3 +11,30 @@ footer{border-top:1px solid rgba(255,255,255,.06);padding:25px 0;color:var(--mut
 @media(max-width:620px){.container{width:min(100% - 28px,1120px)}.nav{display:none;position:absolute;left:14px;right:14px;top:64px;background:#11131b;border:1px solid var(--border);border-radius:14px;padding:8px;flex-direction:column}.nav.open{display:flex}.menu-btn{display:block}.hero h1{font-size:3.1rem}.hero-orb{display:none}.section-heading{align-items:start;gap:15px;flex-direction:column}.category-card{min-height:auto}.footer-wrap{flex-direction:column}.input-row{flex-direction:column}}
 
 .daily .btn{display:inline-block;margin-top:18px}.daily-status{color:var(--green);font-size:.82rem;font-weight:600;min-height:20px;margin:10px 0 0}.score-panel{margin:-12px 0 28px;padding:22px;border:1px solid var(--border);border-radius:18px;background:linear-gradient(145deg,rgba(255,255,255,.035),rgba(255,255,255,.015));display:grid;grid-template-columns:1fr 1.4fr;gap:20px;align-items:center}.score-panel h2{margin:0 0 5px}.score-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.score-item{padding:14px;border:1px solid var(--border);border-radius:12px;background:#0d0f15;display:grid;gap:6px}.score-item span{font-size:.78rem;color:var(--muted)}.score-item strong{font-size:1.05rem;color:var(--accent2)}.daily-game-note{margin:-8px 0 22px;padding:13px 16px;border:1px solid #30294a;border-radius:12px;background:rgba(139,92,246,.09);color:#d9d0ff;font-size:.88rem}.daily-game-note strong{color:#fff}.game-actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:12px}.game-actions .btn{flex:1}.new-best{color:var(--green)!important}.challenge-complete{color:var(--green)!important}@media(max-width:850px){.score-panel{grid-template-columns:1fr}.score-grid{grid-template-columns:1fr}}
+
+/* Stage B games */
+.stage-b-intro { margin: 34px 0 18px; }
+.stage-b-intro h2 { margin: 4px 0 6px; }
+.stage-b-games { margin-top: 18px; }
+.game-stats { display:flex; gap:10px; flex-wrap:wrap; margin:12px 0; }
+.game-stats span { background:rgba(255,255,255,.04); border:1px solid var(--border); border-radius:10px; padding:8px 10px; font-size:.9rem; }
+.game-stats strong { margin-left:4px; }
+.target-arena { position:relative; min-height:230px; border:1px solid var(--border); border-radius:14px; background:#11131a; overflow:hidden; display:grid; place-items:center; color:var(--muted); }
+.target-dot { position:absolute; width:42px; height:42px; border-radius:50%; border:3px solid #fff; background:var(--accent); cursor:pointer; box-shadow:0 0 0 7px rgba(124,92,255,.18); }
+.territory-grid { display:grid; grid-template-columns:repeat(5,1fr); gap:6px; margin:14px 0; }
+.territory { min-height:52px; border:1px solid var(--border); border-radius:9px; background:#151821; color:var(--text); cursor:pointer; font-weight:700; }
+.territory.player { background:rgba(124,92,255,.28); border-color:var(--accent); }
+.territory.ai { background:rgba(255,255,255,.09); }
+.territory.neutral { opacity:.72; }
+.territory.attackable { outline:2px solid var(--accent); }
+.pirate-stats { display:grid; grid-template-columns:repeat(4,1fr); gap:8px; margin:14px 0; }
+.pirate-stats div { padding:10px 8px; border:1px solid var(--border); border-radius:10px; background:rgba(255,255,255,.035); text-align:center; }
+.pirate-stats span { display:block; font-size:.75rem; color:var(--muted); }
+.pirate-stats strong { display:block; margin-top:3px; }
+.pirate-actions { display:grid; grid-template-columns:1fr 1fr; gap:8px; }
+.upgrade-grid { display:grid; grid-template-columns:1fr 1fr; gap:8px; margin:12px 0; }
+.upgrade-card { border:1px solid var(--border); background:#151821; border-radius:10px; padding:10px; }
+.upgrade-card button { margin-top:8px; width:100%; }
+.survival-bar { height:14px; background:#1b1e27; border-radius:999px; overflow:hidden; border:1px solid var(--border); }
+.survival-bar span { display:block; height:100%; background:var(--accent); transition:width .2s ease; }
+@media (max-width:600px){ .pirate-stats{grid-template-columns:1fr 1fr}.territory-grid{grid-template-columns:repeat(5,minmax(42px,1fr))}.territory{min-height:46px;font-size:.78rem}.upgrade-grid{grid-template-columns:1fr}.target-arena{min-height:200px} }
