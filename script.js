@@ -23,7 +23,27 @@ ${url}`);alert('Challenge link copied! Send it to your friend.');return true}cat
   const challengeResult=(game,score)=>{const c=challengeParam();if(!c||c.game!==game)return '';const beat=challengeBetter[game]==='lower'?score<c.score:score>c.score;send('funhub_challenge_result',{game,score,beat});return beat?' 🎉 You beat the challenge!':score===c.score?' 🤝 You matched it!':' Keep going — try to beat your friend!'};
   const countPlays=()=>Number(safeGet('funhub_games_played')||0);
   const markPlay=(game)=>{safeSet('funhub_games_played',countPlays()+1);safeSet('funhub_last_game',game);send('funhub_game_start',{game});const e=$('games-played-count');if(e)e.textContent=countPlays()};
-  const recordDaily=(game)=>{if(game===dailyGame())safeSet('funhub_daily_completed',todayKey())};
+  const dateShift=(dateString,delta)=>{const d=new Date(dateString+'T00:00:00');d.setDate(d.getDate()+delta);return d.toISOString().slice(0,10)};
+  const recordDaily=(game)=>{
+    if(game!==dailyGame())return;
+    const today=todayKey();
+    if(safeGet('funhub_daily_completed')===today)return;
+    const previous=safeGet('funhub_daily_completed');
+    let streak=Number(safeGet('funhub_daily_streak')||0);
+    if(previous===dateShift(today,-1)) streak+=1; else streak=1;
+    const best=Math.max(streak,Number(safeGet('funhub_best_streak')||0));
+    safeSet('funhub_daily_completed',today);
+    safeSet('funhub_daily_streak',streak);
+    safeSet('funhub_best_streak',best);
+    send('funhub_daily_completed',{game,streak});
+    updateStreakUI();
+  };
+  const updateStreakUI=()=>{
+    const streak=Number(safeGet('funhub_daily_streak')||0),best=Number(safeGet('funhub_best_streak')||0),completed=safeGet('funhub_daily_completed')===todayKey();
+    document.querySelectorAll('[data-streak-current]').forEach(e=>e.textContent=streak);
+    document.querySelectorAll('[data-streak-best]').forEach(e=>e.textContent=best);
+    document.querySelectorAll('[data-streak-status]').forEach(e=>e.textContent=completed?'✓ Today completed — streak protected.':'Complete today’s challenge to keep your streak alive.');
+  };
   const updateDailyUI=()=>{
     const game=dailyGame();const names={reaction:'Reaction Test',guess:'Number Guessing',memory:'Memory Challenge'};const desc={reaction:'Beat the clock and set your fastest reaction.',guess:'Find today\'s hidden number in as few guesses as possible.',memory:'Remember the sequence and reach the highest level you can.'};
     const title=$('daily-title'),d=$('daily-description'),b=$('daily-btn'),s=$('daily-status');
@@ -43,6 +63,7 @@ ${url}`);alert('Challenge link copied! Send it to your friend.');return true}cat
   const plays=$('games-played-count');if(plays)plays.textContent=countPlays();
   const reset=$('reset-scores');if(reset)reset.addEventListener('click',()=>{if(confirm('Reset all FunHub personal records on this device?')){Object.values(keys).forEach(k=>{try{localStorage.removeItem(k)}catch{}});location.reload()}});
   updateDailyUI();
+  updateStreakUI();
 
   // Game filtering/search
   const cards=[...document.querySelectorAll('[data-game-card]')], search=$('game-search'), filters=[...document.querySelectorAll('.filter-btn')];let activeFilter='all';
@@ -154,6 +175,17 @@ ${url}`);alert('Challenge link copied! Send it to your friend.');return true}cat
   });
   const bioSets={chill:['Taking it easy, one day at a time. 🌿','Good energy. Quiet goals.','Here for the moments that matter.','Low pressure, high vibes.','Just enjoying the ride.'],funny:['Professional snack finder.','Running on vibes and questionable ideas.','Currently buffering…','I came, I saw, I forgot why.','Part-time human, full-time legend.'],ambitious:['Building quietly. Growing daily.','Small steps. Big plans.','Discipline over excuses.','Learning today, creating tomorrow.','Focused on the next level.'],mysterious:['More to the story.','Offline, but never ordinary.','You know the surface.','Some things stay unexplained.','Read between the lines.'],creator:['Ideas in. Things out.','Creating more than consuming.','Making, learning, repeating.','One project at a time.','Building things for the internet.']};
   const bioBtn=$('bio-btn');if(bioBtn)bioBtn.addEventListener('click',()=>showOutputs($('bio-output'),pick(bioSets[$('bio-vibe').value],5),'bio'));
+
+  // Personal dashboard (local device data only). Site-wide visitor data remains in GA4/Search Console.
+  const dashPlays=$('dash-games-played');
+  if(dashPlays)dashPlays.textContent=countPlays();
+  const dashLast=$('dash-last-game');
+  if(dashLast){const map={reaction:'Reaction Test',guess:'Number Guessing',memory:'Memory Challenge',precision:'Precision AI Range',conquest:'World Conquest',pirate:'Pirate Empire',survival:'Survival Outpost'};dashLast.textContent=map[safeGet('funhub_last_game')]||'—'}
+  const dashStreak=$('dash-streak');if(dashStreak)dashStreak.textContent=Number(safeGet('funhub_daily_streak')||0);
+  const dashBestStreak=$('dash-best-streak');if(dashBestStreak)dashBestStreak.textContent=Number(safeGet('funhub_best_streak')||0);
+  const dashDaily=$('dash-daily-status');if(dashDaily)dashDaily.textContent=safeGet('funhub_daily_completed')===todayKey()?'Completed today':'Not completed today';
+  const clearLocal=$('clear-local-stats');
+  if(clearLocal)clearLocal.addEventListener('click',()=>{if(confirm('Clear FunHub stats saved on this device?')){['funhub_games_played','funhub_last_game','funhub_daily_completed','funhub_daily_streak','funhub_best_streak'].forEach(k=>{try{localStorage.removeItem(k)}catch{}});Object.values(keys).forEach(k=>{try{localStorage.removeItem(k)}catch{}});location.reload()}});
 
   // Generic interaction analytics. Do not send field values.
   document.querySelectorAll('a.btn,button.btn').forEach(el=>el.addEventListener('click',()=>{const label=(el.textContent||'').trim().slice(0,40);send('funhub_navigation',{label})}));
