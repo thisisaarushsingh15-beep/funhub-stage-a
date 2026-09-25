@@ -1,17 +1,15 @@
-FUNHUB ENGAGEMENT UPGRADE BUILD
-Updated: September 24, 2026
+FunHub Challenge + Share Results — TEST BUILD
 
-This build upgrades FunHub in five areas:
-1. Better game browsing and game flow: filters, search, clearer cards and play actions.
-2. Daily Challenge: rotates between the quick games each day and tracks completion on-device.
-3. Personal High Scores: clearer dashboard, per-game records and reset control.
-4. Better generators: five results at once with Copy buttons and more styles.
-5. Analytics: Google Analytics remains enabled with additional non-PII interaction events.
+Adds a self-contained Challenge a Friend + Share Results system.
 
-Important:
-- Personal scores, daily completion and play counts use browser localStorage.
-- Generator text and calculator values are not sent to Google Analytics.
-- This package keeps the existing standalone simulation game files.
-- Homepage uses the previously approved spacious redesign.
-- Test the package on the separate funhub-stage-a repository before replacing the live site.
-- Do not upload this test build to the live repository until it has been manually tested.
+Features:
+- Share result buttons for Reaction Test, Number Guessing and Memory Challenge.
+- Share button on standalone Precision, World Conquest, Pirate Empire and Survival Outpost pages.
+- Native mobile/browser sharing when supported, with clipboard fallback.
+- Challenge links use URL parameters only; no account, database or personal data is required.
+- Opening a challenge link shows the friend's score and whether lower/higher is better.
+- Results compare against the challenge score after the quick games finish.
+- Google Analytics events: funhub_share_result, funhub_challenge_open, funhub_challenge_result.
+- Existing Analytics ID G-S3H3K12WE5 is preserved.
+
+TEST FIRST: upload to funhub-stage-a and verify sharing/challenge flows before replacing the live site.

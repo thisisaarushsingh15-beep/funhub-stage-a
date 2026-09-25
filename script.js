@@ -9,6 +9,18 @@
   const dayIndex=()=>{const s=todayKey().replace(/-/g,'');return Number(s)%dailyGames.length};
   const dailyGame=()=>dailyGames[dayIndex()];
   const send=(name,params={})=>{if(typeof window.gtag==='function'){window.gtag('event',name,params)}};
+  // Challenge + sharing system. Challenge data lives only in the URL; no account or server is required.
+  const challengeGameNames={reaction:'Reaction Test',guess:'Number Guessing',memory:'Memory Challenge',precision:'Precision AI Range',conquest:'World Conquest',pirate:'Pirate Empire',survival:'Survival Outpost'};
+  const challengeMetric={reaction:'ms',guess:'guesses',memory:'level',precision:'points',conquest:'territories',pirate:'score',survival:'waves'};
+  const challengeBetter={reaction:'lower',guess:'lower',memory:'higher',precision:'higher',conquest:'higher',pirate:'higher',survival:'higher'};
+  const challengeParam=()=>{try{const p=new URLSearchParams(location.search);if(!p.get('challengeGame')||!p.get('challengeScore'))return null;const game=p.get('challengeGame');const score=Number(p.get('challengeScore'));if(!challengeGameNames[game]||!Number.isFinite(score))return null;return {game,score}}catch{return null}};
+  const makeChallengeUrl=(game,score)=>{const u=new URL('games.html',location.href);u.searchParams.set('challengeGame',game);u.searchParams.set('challengeScore',String(Math.round(score)));return u.href};
+  const shareText=(game,score)=>{const metric=challengeMetric[game]||'score';return `I got ${Math.round(score)} ${metric} on ${challengeGameNames[game]} at FunHub. Can you beat me?`};
+  const shareChallenge=async(game,score)=>{const url=makeChallengeUrl(game,score);const text=shareText(game,score);send('funhub_share_result',{game,method:navigator.share?'native':'copy'});try{if(navigator.share){await navigator.share({title:`FunHub ${challengeGameNames[game]} Challenge`,text,url});return true}}catch(e){if(e&&e.name==='AbortError')return false}try{await navigator.clipboard.writeText(`${text}
+${url}`);alert('Challenge link copied! Send it to your friend.');return true}catch{prompt('Copy this challenge link:',url);return false}};
+  const makeShareButton=(game,score,container)=>{if(!container||!Number.isFinite(Number(score)))return;let b=container.querySelector('[data-share-result]');if(!b){b=document.createElement('button');b.className='btn share-btn';b.type='button';b.setAttribute('data-share-result','');container.appendChild(b)}b.textContent='↗ Challenge a Friend';b.onclick=()=>shareChallenge(game,Number(score))};
+  const renderChallengeBanner=()=>{const c=challengeParam();if(!c)return;const target=document.querySelector('main')||document.body;const old=document.getElementById('challenge-banner');if(old)old.remove();const el=document.createElement('section');el.id='challenge-banner';el.className='challenge-banner';const metric=challengeMetric[c.game]||'score';el.innerHTML=`<div><span class="eyebrow">FRIEND CHALLENGE</span><strong>Can you beat ${challengeGameNames[c.game]}?</strong><span>Your friend scored <b>${Math.round(c.score)} ${metric}</b>. ${challengeBetter[c.game]==='lower'?'Lower is better.':'Higher is better.'}</span></div><button class="btn primary" id="dismiss-challenge">Got it — play!</button>`;target.prepend(el);document.getElementById('dismiss-challenge')?.addEventListener('click',()=>el.remove());send('funhub_challenge_open',{game:c.game})};
+  const challengeResult=(game,score)=>{const c=challengeParam();if(!c||c.game!==game)return '';const beat=challengeBetter[game]==='lower'?score<c.score:score>c.score;send('funhub_challenge_result',{game,score,beat});return beat?' 🎉 You beat the challenge!':score===c.score?' 🤝 You matched it!':' Keep going — try to beat your friend!'};
   const countPlays=()=>Number(safeGet('funhub_games_played')||0);
   const markPlay=(game)=>{safeSet('funhub_games_played',countPlays()+1);safeSet('funhub_last_game',game);send('funhub_game_start',{game});const e=$('games-played-count');if(e)e.textContent=countPlays()};
   const recordDaily=(game)=>{if(game===dailyGame())safeSet('funhub_daily_completed',todayKey())};
@@ -23,6 +35,7 @@
   // Mobile navigation
   const menu=$('.menu-btn'),nav=document.querySelector('.nav');
   if(menu&&nav){menu.addEventListener('click',()=>{const open=nav.classList.toggle('open');menu.setAttribute('aria-expanded',String(open))})}
+  renderChallengeBanner();
 
   // Scores dashboard
   const scoreValue=(id)=>safeGet(keys[id])||'—';
@@ -40,11 +53,11 @@
 
   // Reaction Test
   const rb=$('reaction-btn'),box=$('reaction-box'),rr=$('reaction-result');
-  if(rb&&box){let state='idle',start=0,timer=0;const reset=()=>{state='idle';box.textContent='Press Start';box.className='reaction-box ready';rb.textContent='Start'};const finish=()=>{const ms=Date.now()-start;rr.textContent=`${ms} ms`;const old=Number(safeGet(keys.reaction)||99999);if(ms<old){safeSet(keys.reaction,ms);send('funhub_new_record',{game:'reaction',score:ms});}recordDaily('reaction');const e=$('score-reaction'),c=$('reaction-card-best');if(e)e.textContent=Math.min(ms,old);if(c)c.textContent=Math.min(ms,old);reset()};rb.addEventListener('click',()=>{if(state==='waiting'){clearTimeout(timer);state='idle';box.textContent='Too soon!';box.className='reaction-box fail';rb.textContent='Try again';send('funhub_game_action',{game:'reaction',action:'too_soon'});return}if(state==='ready'){finish();return}state='waiting';box.textContent='Wait…';box.className='reaction-box waiting';rb.textContent='Wait…';markPlay('reaction');timer=setTimeout(()=>{state='ready';start=Date.now();box.textContent='TAP NOW';box.className='reaction-box go';rb.textContent='TAP!'},800+Math.random()*1800)});box.addEventListener('click',()=>rb.click())}
+  if(rb&&box){let state='idle',start=0,timer=0;const reset=()=>{state='idle';box.textContent='Press Start';box.className='reaction-box ready';rb.textContent='Start'};const finish=()=>{const ms=Date.now()-start;rr.textContent=`${ms} ms`+challengeResult('reaction',ms);const old=Number(safeGet(keys.reaction)||99999);makeShareButton('reaction',ms,rr.parentElement);if(ms<old){safeSet(keys.reaction,ms);send('funhub_new_record',{game:'reaction',score:ms});}recordDaily('reaction');const e=$('score-reaction'),c=$('reaction-card-best');if(e)e.textContent=Math.min(ms,old);if(c)c.textContent=Math.min(ms,old);reset()};rb.addEventListener('click',()=>{if(state==='waiting'){clearTimeout(timer);state='idle';box.textContent='Too soon!';box.className='reaction-box fail';rb.textContent='Try again';send('funhub_game_action',{game:'reaction',action:'too_soon'});return}if(state==='ready'){finish();return}state='waiting';box.textContent='Wait…';box.className='reaction-box waiting';rb.textContent='Wait…';markPlay('reaction');timer=setTimeout(()=>{state='ready';start=Date.now();box.textContent='TAP NOW';box.className='reaction-box go';rb.textContent='TAP!'},800+Math.random()*1800)});box.addEventListener('click',()=>rb.click())}
 
   // Number Guessing
   const gi=$('guess-input'),gb=$('guess-btn'),gr=$('guess-result'),gn=$('guess-reset');
-  if(gi&&gb){let n=Math.floor(Math.random()*100)+1,tries=0,started=false;const resetGuess=()=>{n=Math.floor(Math.random()*100)+1;tries=0;started=false;gr.textContent='Start guessing.';gi.value=''};const check=()=>{const v=Number(gi.value);if(!Number.isInteger(v)||v<1||v>100){gr.textContent='Enter a whole number from 1 to 100.';return}if(!started){started=true;markPlay('guess')}tries++;if(v===n){gr.textContent=`Correct in ${tries} ${tries===1?'guess':'guesses'}!`;const old=Number(safeGet(keys.guess)||999);if(tries<old){safeSet(keys.guess,tries);send('funhub_new_record',{game:'guess',score:tries})}recordDaily('guess');const e=$('score-guess'),c=$('guess-card-best');if(e)e.textContent=Math.min(tries,old);if(c)c.textContent=Math.min(tries,old)}else gr.textContent=v<n?'Too low.':'Too high.'};gb.addEventListener('click',check);gi.addEventListener('keydown',e=>{if(e.key==='Enter')check()});if(gn)gn.addEventListener('click',resetGuess)}
+  if(gi&&gb){let n=Math.floor(Math.random()*100)+1,tries=0,started=false;const resetGuess=()=>{n=Math.floor(Math.random()*100)+1;tries=0;started=false;gr.textContent='Start guessing.';gi.value=''};const check=()=>{const v=Number(gi.value);if(!Number.isInteger(v)||v<1||v>100){gr.textContent='Enter a whole number from 1 to 100.';return}if(!started){started=true;markPlay('guess')}tries++;if(v===n){gr.textContent=`Correct in ${tries} ${tries===1?'guess':'guesses'}!`+challengeResult('guess',tries);const old=Number(safeGet(keys.guess)||999);makeShareButton('guess',tries,gr.parentElement);if(tries<old){safeSet(keys.guess,tries);send('funhub_new_record',{game:'guess',score:tries})}recordDaily('guess');const e=$('score-guess'),c=$('guess-card-best');if(e)e.textContent=Math.min(tries,old);if(c)c.textContent=Math.min(tries,old)}else gr.textContent=v<n?'Too low.':'Too high.'};gb.addEventListener('click',check);gi.addEventListener('keydown',e=>{if(e.key==='Enter')check()});if(gn)gn.addEventListener('click',resetGuess)}
 
   // Memory Challenge
   const mb=$('memory-btn'),md=$('memory-sequence'),mi=$('memory-input'),mr=$('memory-result');
@@ -87,11 +100,31 @@
           const best=Math.max(0,level-1),old=Number(safeGet(keys.memory)||0);
           if(best>old){safeSet(keys.memory,best);send('funhub_new_record',{game:'memory',score:best})}
           const e=$('score-memory'),c=$('memory-card-best');if(e)e.textContent=Math.max(best,old);if(c)c.textContent=Math.max(best,old);
-          mr.textContent=`Game over. You reached level ${best}. The sequence was ${sequence}.`;
+          mr.textContent=`Game over. You reached level ${best}. The sequence was ${sequence}.`+challengeResult('memory',best);makeShareButton('memory',best,mr.parentElement);
           accept=false;clearMemoryTimer();mi.classList.add('hidden');level=0;md.textContent='Ready?';mb.textContent='Start challenge';
         }
       }
     });
+  }
+
+  const standaloneGame={
+    'precision.html':{game:'precision',scoreId:'score'},
+    'conquest.html':{game:'conquest',scoreId:null},
+    'pirate.html':{game:'pirate',scoreId:null},
+    'survival.html':{game:'survival',scoreId:'wave'}
+  };
+  const fileName=location.pathname.split('/').pop()||'index.html';
+  const sg=standaloneGame[fileName];
+  if(sg){
+    const bar=document.querySelector('.game-topbar');
+    if(bar){const b=document.createElement('button');b.className='icon-btn share-game-top';b.type='button';b.title='Share a challenge';b.textContent='↗';bar.insertBefore(b,bar.lastElementChild);b.addEventListener('click',()=>{
+      let score=0;
+      if(sg.scoreId){score=Number($(sg.scoreId)?.textContent||0)}
+      else if(sg.game==='conquest'){score=Number((safeGet(keys.conquest)||0))}
+      else if(sg.game==='pirate'){score=Number((safeGet(keys.pirate)||0))}
+      if(!score){alert('Play a little first to create a score to share.');return}
+      shareChallenge(sg.game,score);
+    });}
   }
 
   // Generators
